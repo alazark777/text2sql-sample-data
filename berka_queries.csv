@@ -1,0 +1,31 @@
+id,description,importance,sql_query,level
+1,Get the total number of accounts in the system,Understanding the scale of the data,SELECT COUNT(*) FROM ACCOUNT,Beginner
+2,Get the number of clients who have at least one account,Understanding client behavior,SELECT COUNT(DISTINCT client_id) FROM DISPOSITION,Beginner
+3,Get the total amount of all transactions,Understanding transaction volume,SELECT SUM(amount) FROM TRANSACTION,Beginner
+4,Get the average balance of all accounts,Understanding account balances,SELECT AVG(balance) FROM TRANSACTION,Beginner
+5,Get the number of loans granted,Understanding loan volume,SELECT COUNT(*) FROM LOAN,Beginner
+6,Get the average amount of loans,Understanding loan size,SELECT AVG(amount) FROM LOAN,Beginner
+7,Get the number of credit cards issued,Understanding credit card usage,SELECT COUNT(*) FROM CREDIT_CARD,Beginner
+8,Get the average age of clients,Understanding client demographics,SELECT AVG(EXTRACT(YEAR FROM date) - EXTRACT(YEAR FROM birth_number)) FROM CLIENT,Beginner
+9,Get the number of transactions per client,Understanding client transaction behavior,"SELECT client_id, COUNT(*) FROM TRANSACTION GROUP BY client_id",Beginner
+10,Get the average transaction amount per client,Understanding client transaction behavior,"SELECT client_id, AVG(amount) FROM TRANSACTION GROUP BY client_id",Beginner
+11,Get the top 5 districts with the most accounts,Understanding account distribution,"SELECT district_id, COUNT(*) FROM ACCOUNT GROUP BY district_id ORDER BY COUNT(*) DESC LIMIT 5",Intermediate
+12,Get the average balance of accounts by district,Understanding account balances by district,"SELECT district_id, AVG(balance) FROM TRANSACTION GROUP BY district_id",Intermediate
+13,Get the number of loans granted by district,Understanding loan volume by district,"SELECT district_id, COUNT(*) FROM LOAN GROUP BY district_id",Intermediate
+14,Get the average loan amount by district,Understanding loan size by district,"SELECT district_id, AVG(amount) FROM LOAN GROUP BY district_id",Intermediate
+15,Get the number of credit cards issued by district,Understanding credit card usage by district,"SELECT district_id, COUNT(*) FROM CREDIT_CARD GROUP BY district_id",Intermediate
+16,Get the average age of clients by district,Understanding client demographics by district,"SELECT district_id, AVG(EXTRACT(YEAR FROM date) - EXTRACT(YEAR FROM birth_number)) FROM CLIENT GROUP BY district_id",Intermediate
+17,Get the number of transactions per client by district,Understanding client transaction behavior by district,"SELECT district_id, client_id, COUNT(*) FROM TRANSACTION GROUP BY district_id, client_id",Intermediate
+18,Get the average transaction amount per client by district,Understanding client transaction behavior by district,"SELECT district_id, client_id, AVG(amount) FROM TRANSACTION GROUP BY district_id, client_id",Intermediate
+19,Get the top 5 clients with the most transactions,Understanding client transaction behavior,"SELECT client_id, COUNT(*) FROM TRANSACTION GROUP BY client_id ORDER BY COUNT(*) DESC LIMIT 5",Intermediate
+20,Get the average transaction amount per client by type of transaction,Understanding client transaction behavior,"SELECT type, AVG(amount) FROM TRANSACTION GROUP BY type",Intermediate
+21,Get the correlation between account balance and loan amount,Understanding the relationship between account balance and loan amount,"SELECT AVG(balance) AS avg_balance, AVG(amount) AS avg_loan FROM LOAN JOIN TRANSACTION ON LOAN.account_id = TRANSACTION.account_id",Advanced
+22,Get the distribution of transaction types by district,Understanding transaction types by district,"SELECT district_id, type, COUNT(*) FROM TRANSACTION GROUP BY district_id, type",Advanced
+23,Get the average transaction amount per client by credit card type,Understanding client transaction behavior by credit card type,"SELECT type, AVG(amount) FROM TRANSACTION JOIN CREDIT_CARD ON TRANSACTION.account_id = CREDIT_CARD.account_id GROUP BY type",Advanced
+24,Get the number of clients who have both a loan and a credit card,Understanding client behavior,SELECT COUNT(DISTINCT client_id) FROM LOAN INTERSECT SELECT client_id FROM CREDIT_CARD,Advanced
+25,Get the average age of clients who have a loan,Understanding client demographics,SELECT AVG(EXTRACT(YEAR FROM date) - EXTRACT(YEAR FROM birth_number)) FROM CLIENT JOIN LOAN ON CLIENT.client_id = LOAN.account_id,Advanced
+26,Get the number of transactions per client by loan status,Understanding client transaction behavior by loan status,"SELECT loan_id, client_id, COUNT(*) FROM TRANSACTION JOIN LOAN ON TRANSACTION.account_id = LOAN.account_id GROUP BY loan_id, client_id",Advanced
+27,Get the average transaction amount per client by loan status,Understanding client transaction behavior by loan status,"SELECT loan_id, client_id, AVG(amount) FROM TRANSACTION JOIN LOAN ON TRANSACTION.account_id = LOAN.account_id GROUP BY loan_id, client_id",Advanced
+28,Get the correlation between transaction amount and balance by district,Understanding the relationship between transaction amount and balance by district,"SELECT district_id, AVG(amount) AS avg_amount, AVG(balance) AS avg_balance FROM TRANSACTION GROUP BY district_id",Advanced
+29,Get the distribution of credit card types by district,Understanding credit card usage by district,"SELECT district_id, type, COUNT(*) FROM CREDIT_CARD GROUP BY district_id, type",Advanced
+30,Get the average age of clients who have a credit card,Understanding client demographics,SELECT AVG(EXTRACT(YEAR FROM date) - EXTRACT(YEAR FROM birth_number)) FROM CLIENT JOIN CREDIT_CARD ON CLIENT.client_id = CREDIT_CARD.disp_id,Advanced
